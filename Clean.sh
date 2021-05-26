@@ -63,6 +63,12 @@ Performing Yum Clean ...
 "
 yum clean all &>/dev/null
 
+echo "
+Clean Old Kernel ...
+"
+yum install yum-utils
+sudo package-cleanup --oldkernels --count=2
+
 # Checks free space after cleaning routine
 FreeSpaceAfterClean=`df -k -h . | awk ' { print $4 } ' | sed -e 's/Avail//g' | tail -n 1`
 
