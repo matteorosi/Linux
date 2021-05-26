@@ -69,6 +69,17 @@ Clean Old Kernel ...
 yum install yum-utils
 sudo package-cleanup --oldkernels --count=2
 
+echo "
+Clean Orphan Package ...
+"
+package-cleanup --quiet --leaves --exclude-bin | xargs yum remove -y
+
+echo "
+Remove Composer Cache ...
+"
+rm -rf /root/.composer/cache
+rm -rf /home/*/.composer/cache
+
 # Checks free space after cleaning routine
 FreeSpaceAfterClean=`df -k -h . | awk ' { print $4 } ' | sed -e 's/Avail//g' | tail -n 1`
 
